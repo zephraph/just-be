@@ -1,0 +1,5 @@
+node_modules
+.mdx-data
+.next
+*-error.log
+package-lock.json
