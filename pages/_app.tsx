@@ -1,5 +1,4 @@
-import "../styles/base.css";
-import "../styles/nord.css";
+import "../lib/styles/base.css";
 import App from "next/app";
 import React from "react";
 

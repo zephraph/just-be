@@ -1,6 +1,5 @@
 import React from "react";
-import { H1 } from "../components/Heading";
-import { decorate } from "../lib/transform-children";
+import { H1 } from "../lib/components/Heading";
 import { MDXProvider } from "@mdx-js/react";
 
 const P = ({ children, ...props }) => (
