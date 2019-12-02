@@ -1,4 +1,12 @@
 @tailwind base;
+@typography;
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
 @tailwind components;
 @tailwind utilities;
 

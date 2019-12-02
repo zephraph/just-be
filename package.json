@@ -10,11 +10,15 @@
     "start": "NODE_ENV=production next start"
   },
   "dependencies": {
+    "import-modules": "^2.0.0",
     "module-alias": "2.2.2",
-    "next": "^9.1.4",
+    "next": "^9.1.5-canary.8",
     "preact": "^10.0.5",
     "preact-render-to-string": "^5.1.1",
-    "tailwindcss": "^1.1.4"
+    "react-typography": "^0.16.19",
+    "tailwindcss": "^1.1.4",
+    "typography": "^0.16.19",
+    "typography-theme-wordpress-2014": "^0.16.19"
   },
   "license": "MIT",
   "devDependencies": {
@@ -24,6 +28,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.7.2",
+    "babel-plugin-import-glob-array": "^0.2.0",
     "next-mdx-enhanced": "^2.2.1",
     "patch-package": "^6.2.0",
     "react": "^16.12.0",
