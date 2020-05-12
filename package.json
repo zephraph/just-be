@@ -1,6 +1,7 @@
 {
   "name": "just-be",
   "version": "1.0.0",
+  "license": "MIT",
   "engines": {
     "node": "12.x"
   },
@@ -10,28 +11,20 @@
     "start": "NODE_ENV=production next start"
   },
   "dependencies": {
-    "import-modules": "^2.0.0",
-    "module-alias": "2.2.2",
-    "next": "^9.1.5-canary.8",
-    "preact": "^10.0.5",
-    "preact-render-to-string": "^5.1.1",
-    "react-typography": "^0.16.19",
-    "tailwindcss": "^1.1.4",
-    "typography": "^0.16.19",
-    "typography-theme-wordpress-2014": "^0.16.19"
+    "next": "^9.4.0",
+    "preact": "^10.4.1",
+    "preact-render-to-string": "^5.1.8",
+    "react": "github:preact-compat/react#1.0.0",
+    "react-dom": "github:preact-compat/react-dom#1.0.0",
+    "react-notion": "^0.5.2",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
+    "tailwindcss": "^1.2.0"
   },
-  "license": "MIT",
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^1.3.0",
-    "@types/node": "^12.12.14",
+    "@now/node": "^1.6.1",
+    "@types/node": "^13.7.0",
     "@types/react": "^16.9.13",
-    "@zeit/next-css": "^1.0.1",
-    "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.7.2",
-    "babel-plugin-import-glob-array": "^0.2.0",
-    "next-mdx-enhanced": "^2.2.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
     "typescript": "^3.7.2"
   }
 }
