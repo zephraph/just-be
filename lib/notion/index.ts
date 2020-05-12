@@ -1,5 +1,6 @@
 import { INotionParams } from "./types";
 import { parsePageId } from "./utils";
+import fetch from "isomorphic-unfetch";
 
 export * from "./types";
 

@@ -16,6 +16,8 @@ export const getTableContents = async (
 ) => {
   const page = await fetchPageById(tableId, notionToken);
 
+  console.log(page);
+
   if (!page.recordMap.collection) {
     throw new Error(`No table found on Notion page: ${tableId}`);
   }
