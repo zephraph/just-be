@@ -1,0 +1,21 @@
+h1.notion-h1,
+h2.notion-h2,
+h3.notion-h3 {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.notion-text b {
+  color: #2d3748;
+}
+
+ol.notion-list + ol.notion-list {
+  margin-top: -10px;
+}
+
+.notion-code .token.operator,
+.notion-code .token.entity,
+.notion-code .token.url,
+.notion-code .token.string {
+  background: inherit !important;
+}

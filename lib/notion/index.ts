@@ -28,8 +28,6 @@ const fetchNotionData = async ({
     body: JSON.stringify(body),
   });
 
-  console.log(res.status);
-
   return res.json();
 };
 

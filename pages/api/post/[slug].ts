@@ -6,8 +6,6 @@ import { Post } from "lib/types";
 export default async function (req: NowRequest, res: NowResponse) {
   const { slug } = req.query;
 
-  console.log("called with", slug);
-
   const posts = ((await getTableContents(
     process.env.BLOG_ID,
     process.env.NOTION_TOKEN
@@ -15,8 +13,6 @@ export default async function (req: NowRequest, res: NowResponse) {
 
   const id = posts.find((post) => post.Slug.split(",").includes(slug as string))
     ?.id;
-
-  console.log("page?", id);
 
   if (id) {
     const page = await fetchPageById(id as string, process.env.NOTION_TOKEN);

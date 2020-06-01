@@ -3,4 +3,5 @@ export interface Post {
   Name: string;
   Slug: string;
   Published: boolean;
+  ["Published Date"]: string;
 }
