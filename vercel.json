@@ -1,0 +1,5 @@
+{
+  "env": {
+    "BLOG_ID": "@notion-blog-id"
+  }
+}
