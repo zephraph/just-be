@@ -20,7 +20,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
           post: post.Slug.split(",")[0].trim(),
         },
       })) as any,
-    fallback: true,
+    fallback: false,
   };
 };
 
