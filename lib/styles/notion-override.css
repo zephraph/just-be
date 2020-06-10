@@ -13,6 +13,10 @@ ol.notion-list + ol.notion-list {
   margin-top: -10px;
 }
 
+.notion-code {
+  overflow-x: auto;
+}
+
 .notion-code .token.operator,
 .notion-code .token.entity,
 .notion-code .token.url,
