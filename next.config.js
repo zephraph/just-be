@@ -1,6 +1,6 @@
-const path = require("path");
+const withPrefresh = require("@prefresh/next");
 
-module.exports = {
+const config = {
   experimental: {
     modern: true,
     polyfillsOptimization: true,
@@ -25,10 +25,6 @@ module.exports = {
       }
     }
 
-    // Install webpack aliases:
-    const aliases = config.resolve.alias || (config.resolve.alias = {});
-    aliases.react = aliases["react-dom"] = "preact/compat";
-
     // inject Preact DevTools
     if (dev && !isServer) {
       const entry = config.entry;
@@ -44,3 +40,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = withPrefresh(config);
