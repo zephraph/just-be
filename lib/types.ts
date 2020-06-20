@@ -3,5 +3,6 @@ export interface Post {
   Name: string;
   Slug: string;
   Published: boolean;
+  Preview: string;
   ["Published Date"]: string;
 }
