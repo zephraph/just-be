@@ -4,6 +4,7 @@ import { Post } from "lib/types";
 import { NotionRenderer } from "react-notion";
 import { fetchPageById } from "lib/notion";
 import { fetchPostMetaFromSlug } from "lib/notion/blog";
+import { formatDate } from "lib/utils";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = ((await getTableContents(
@@ -30,14 +31,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     : params) as Post;
 
   const page = await fetchPageById(postMeta.id, process.env.NOTION_TOKEN);
-  return { props: { title: postMeta.Name, page: page.recordMap.block } };
+  return {
+    props: {
+      title: postMeta.Name,
+      page: page.recordMap.block,
+      published: postMeta["Published Date"],
+    },
+  };
 };
 
-const BlogPost = ({ page, title }) => {
+const BlogPost = ({ page, title, published }) => {
   return (
     <>
-      <header className="notion mb-1">
-        <h1 className="notion-h1">{title}</h1>
+      <header className="notion mb-1 flex items-center justify-between">
+        <h1 className="notion-h1">{title}</h1>{" "}
+        <span className="text-gray-600">{formatDate(published)}</span>
       </header>
       <NotionRenderer blockMap={page} />
     </>

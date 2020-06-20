@@ -5,3 +5,10 @@ export const urlFromReq = (req: IncomingMessage) => {
   const protocol = host.split(":")[0] === "localhost" ? "http" : "https";
   return `${protocol}://${host}${process.env.ASSET_PREFIX ?? ""}`;
 };
+
+export const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    day: "numeric",
+  });
