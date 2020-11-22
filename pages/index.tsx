@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import { getPublishedPosts } from "lib/notion/blog";
 import Link from "next/link";
 import { Post } from "lib/types";
-import { formatDate } from "lib/utils";
+import { formatDate } from "lib/utils/date";
 
 export const getStaticProps: GetStaticProps = async () => {
   const publishedPosts = await getPublishedPosts();

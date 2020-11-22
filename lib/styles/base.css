@@ -4,6 +4,7 @@ html,
 body,
 #__next {
   height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 @tailwind components;
