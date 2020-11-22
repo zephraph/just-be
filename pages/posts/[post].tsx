@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       published: postMeta["Published Date"],
       backPath: "/",
     },
-    revalidate: 60 * 5, // Only revalidate every 5 hours
+    revalidate: 60 * 30, // Only revalidate every 30 minutes
   };
 };
 
