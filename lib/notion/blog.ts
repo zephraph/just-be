@@ -15,5 +15,5 @@ export const fetchPostMetaFromSlug = async (slug: string) => {
     process.env.NOTION_TOKEN
   )) as unknown) as Post[];
 
-  return posts.find((post) => post.Slug.split(",").includes(slug));
+  return posts.find((post) => post.Slug?.split(",").includes(slug));
 };

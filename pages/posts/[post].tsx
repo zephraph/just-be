@@ -4,7 +4,9 @@ import { Post } from "lib/types";
 import { NotionRenderer } from "react-notion";
 import { fetchPageById } from "lib/notion";
 import { fetchPostMetaFromSlug } from "lib/notion/blog";
-import { formatDate } from "lib/utils";
+import { formatDate } from "lib/utils/date";
+import { to } from "lib/utils/await";
+import pLocate from "p-locate";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = ((await getTableContents(
@@ -21,22 +23,43 @@ export const getStaticPaths: GetStaticPaths = async () => {
           post: post.Slug.split(",")[0].trim(),
         },
       })) as any,
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postMeta = (!params.id || !params.Name
-    ? await fetchPostMetaFromSlug(params.post as string)
-    : params) as Post;
+  const [err, data] = await to(
+    pLocate(
+      [
+        (params as unknown) as Post,
+        fetchPostMetaFromSlug(params?.post as string),
+      ],
+      (meta) => Boolean(meta?.id && meta.Name)
+    ).then<{ postMeta: Post; page }>(async (meta) => ({
+      postMeta: meta,
+      page: await fetchPageById(meta.id, process.env.NOTION_TOKEN),
+    }))
+  );
 
-  const page = await fetchPageById(postMeta.id, process.env.NOTION_TOKEN);
+  if (err) {
+    console.error("ERROR:", err);
+    return {
+      notFound: true,
+      props: {},
+      revalidate: 60,
+    };
+  }
+
+  const { page, postMeta } = data;
+
   return {
     props: {
       title: postMeta.Name,
       page: page.recordMap.block,
       published: postMeta["Published Date"],
+      backPath: "/",
     },
+    revalidate: 60 * 5, // Only revalidate every 5 hours
   };
 };
 

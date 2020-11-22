@@ -40,7 +40,7 @@ export const getNotionValue = (
     case "number":
       return Number(val[0][0]);
     default:
-      console.log({ val, type });
+      console.error({ val, type });
       return "Not supported";
   }
 };
