@@ -1,10 +1,10 @@
 import { NavBar } from "lib/components/NavBar";
 
-export const Layout = ({ children }) => (
+export const Layout = ({ backPath, children }) => (
   <>
     <main className="container mx-auto px-4 py-2 max-w-screen-md">
-      <NavBar />
-      <section>{children}</section>
+      <NavBar backPath={backPath} />
+      <article>{children}</article>
     </main>
   </>
 );
