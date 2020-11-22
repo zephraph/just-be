@@ -6,7 +6,10 @@ import { formatDate } from "lib/utils/date";
 
 export const getStaticProps: GetStaticProps = async () => {
   const publishedPosts = await getPublishedPosts();
-  return { props: { posts: publishedPosts } };
+  return {
+    props: { posts: publishedPosts },
+    revalidate: 60,
+  };
 };
 
 const BlogPosts = ({ posts }: { posts: Post[] }) => {
