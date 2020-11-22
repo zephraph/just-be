@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import { getPublishedPosts } from "lib/notion/blog";
 import Link from "next/link";
 import { Post } from "lib/types";
-import { formatDate } from "lib/utils/date";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 
 export const getStaticProps: GetStaticProps = async () => {
   const publishedPosts = await getPublishedPosts();
@@ -14,27 +14,25 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const BlogPosts = ({ posts }: { posts: Post[] }) => {
   return (
-    <>
+    <Stack spacing="3">
       {posts.map((post, currentPost) => (
-        <Link href="/[post]" as={`/${post.Slug}`}>
-          <a className="">
-            <div
-              className={`flex flex-col hover:bg-gray-200 rounded p-2 -ml-2 ${
-                currentPost < posts.length - 1 ? "pb-3 mb-1" : ""
-              }`}
+        <Link href={`/${post.Slug}`}>
+          <a>
+            <Flex
+              direction="column"
+              p="2"
+              ml="2"
+              className="rounded hover:bg-gray-200"
             >
-              <div className="flex justify-between">
-                <span className="font-medium mr-3">{post.Name}</span>
-                <span className="text-gray-700">
-                  {formatDate(post["Published Date"])}
-                </span>
-              </div>
-              <span className="text-gray-600">{post.Preview}</span>
-            </div>
+              <Text fontSize="xl">{post.Name}</Text>
+              <Text fontSize="md" color="gray.500">
+                {post.Preview}
+              </Text>
+            </Flex>
           </a>
         </Link>
       ))}
-    </>
+    </Stack>
   );
 };
 
