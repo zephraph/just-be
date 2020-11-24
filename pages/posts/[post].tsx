@@ -6,6 +6,7 @@ import { fetchPageById } from "lib/notion";
 import { fetchPostMetaFromSlug } from "lib/notion/blog";
 import { formatDate } from "lib/utils/date";
 import { to } from "lib/utils/await";
+import { NextSeo } from "next-seo";
 import pLocate from "p-locate";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -56,6 +57,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       title: postMeta.Name,
       page: page.recordMap.block,
+      description: postMeta.Preview,
       published: postMeta["Published Date"],
       backPath: "/",
     },
@@ -63,9 +65,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const BlogPost = ({ page, title, published }) => {
+const BlogPost = ({ page, title, description, published }) => {
   return (
     <>
+      <NextSeo title={`Just Be | ${title}`} description={description} />
       <header className="notion mb-1 flex items-center justify-between">
         <h1 className="notion-h1">{title}</h1>{" "}
         <span className="text-gray-600">{formatDate(published)}</span>
