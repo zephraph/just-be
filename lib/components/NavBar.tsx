@@ -1,6 +1,6 @@
-import { ArrowLeft } from "react-bytesize-icons";
 import Link from "next/link";
-import { IconButton, Fade } from "@chakra-ui/react";
+import { Flex, Spacer, Text } from "@chakra-ui/react";
+import { AnimatedHeader } from "./AnimatedHeader";
 
 interface NavBarProps {
   backPath?: string;
@@ -8,24 +8,39 @@ interface NavBarProps {
 
 export const NavBar = ({ backPath }: NavBarProps) => {
   return (
-    <nav className="flex justify-center items-center pt-4 pb-6 md:pt-8 md:pb-10">
-      {backPath && (
-        <Link href={backPath}>
-          <IconButton
-            aria-label="Navigate to previous view"
-            icon={<ArrowLeft />}
-            size="sm"
-            variant="ghost"
-            p="0.35rem"
+    <nav className="flex justify-between items-center pt-3 pb-10 md:pt-4 md:pb-16">
+      <AnimatedHeader />
+      <Flex justifyContent="flex-end" width="230px" ml={3} flex={1}>
+        <Link href="/about">
+          <Text
+            fontSize="lg"
+            fontWeight="500"
+            className="hover:underline cursor-pointer"
             mr={3}
-          />
+          >
+            About
+          </Text>
         </Link>
-      )}
-      <hr className="w-full h-full" />
-      <span className="whitespace-no-wrap text-5xl px-4 font-thin text-gray-800">
-        JB
-      </span>
-      <hr className="w-full h-full" />
+        <Link href="/">
+          <Text
+            fontSize="lg"
+            fontWeight="500"
+            className="hover:underline cursor-pointer"
+            mr={3}
+          >
+            Blog
+          </Text>
+        </Link>
+        <Link href="/tips">
+          <Text
+            fontSize="lg"
+            fontWeight="500"
+            className="hover:underline cursor-pointer"
+          >
+            Tips
+          </Text>
+        </Link>
+      </Flex>
     </nav>
   );
 };
