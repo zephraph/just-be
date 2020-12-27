@@ -12,6 +12,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page: (await fetchPageById("1a6140d6770b4aabaf307586d5a39839")).recordMap
         .block,
     },
+    revalidate: 3600, // Revalidate every hour
   };
 };
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { AnimatedHeader } from "./AnimatedHeader";
 
 interface NavBarProps {
