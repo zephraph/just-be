@@ -5,6 +5,10 @@ h3.notion-h3 {
   color: #2d3748;
 }
 
+p.notion-text {
+  padding: 5px 2px;
+}
+
 .notion-text b {
   color: #2d3748;
 }
