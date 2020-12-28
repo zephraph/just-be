@@ -71,8 +71,8 @@ const renderDescription = (desc: Tip["Description"]) => {
                   as="span"
                   wordBreak="break-word"
                   whiteSpace="normal"
-                  ml={d.text.startsWith(" ") ? "5px" : 0}
-                  mr={d.text.endsWith(" ") ? "5px" : 0}
+                  ml={d.text.startsWith(" ") ? "1px" : 0}
+                  mr={d.text.endsWith(" ") ? "1px" : 0}
                 >
                   {d.text}
                 </Text>
