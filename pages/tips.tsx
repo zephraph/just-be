@@ -68,6 +68,9 @@ const renderDescription = (desc: Tip["Description"]) => {
             case "text":
               return (
                 <Text
+                  as="span"
+                  wordBreak="break-word"
+                  whiteSpace="normal"
                   ml={d.text.startsWith(" ") ? "5px" : 0}
                   mr={d.text.endsWith(" ") ? "5px" : 0}
                 >
@@ -76,7 +79,14 @@ const renderDescription = (desc: Tip["Description"]) => {
               );
             case "shortcut":
               return (
-                <HStack divider={<Text mx="2px">+</Text>}>
+                <HStack
+                  display="inline"
+                  divider={
+                    <Text as="span" mx="2px">
+                      +
+                    </Text>
+                  }
+                >
                   {d.text
                     .replace(/cmd|command/, "⌘")
                     .replace("option", "⌥")
@@ -90,10 +100,10 @@ const renderDescription = (desc: Tip["Description"]) => {
               );
             case "group":
               return (
-                <HStack spacing={0}>
-                  <Text>(</Text>
+                <HStack display="inline" spacing={0}>
+                  <Text as="span">(</Text>
                   {renderDescription(d.children)}
-                  <Text>)</Text>
+                  <Text as="span">)</Text>
                 </HStack>
               );
             default:
@@ -127,7 +137,7 @@ const TipsPage = ({ tips }: TipsPageProps) => {
           {tips.map((tip) => {
             return (
               <VStack align="flex-start">
-                <HStack spacing={null} wrap="wrap">
+                <HStack display="inline" spacing={null}>
                   {renderDescription(tip.Description)}
                 </HStack>
                 <Flex alignItems="center">
