@@ -8,6 +8,7 @@ import { formatDate } from "lib/utils/date";
 import { to } from "lib/utils/await";
 import { NextSeo } from "next-seo";
 import pLocate from "p-locate";
+import { Title } from "lib/components/title";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = ((await getTableContents(
@@ -69,10 +70,7 @@ const BlogPost = ({ page, title, description, published }) => {
   return (
     <>
       <NextSeo title={`Just Be | ${title}`} description={description} />
-      <header className="notion mb-1 flex items-center justify-between">
-        <h1 className="notion-h1">{title}</h1>{" "}
-        <span className="text-gray-600">{formatDate(published)}</span>
-      </header>
+      <Title text={title} date={published} />
       <NotionRenderer blockMap={page} />
     </>
   );

@@ -8,7 +8,7 @@ interface NavBarProps {
 
 export const NavBar = ({ backPath }: NavBarProps) => {
   return (
-    <nav className="flex justify-between items-center pt-3 pb-10 md:pt-4 md:pb-16">
+    <nav className="flex justify-between items-center pt-3 pb-10 md:pt-4 md:pb-10">
       <AnimatedHeader />
       <Flex justifyContent="flex-end" width="230px" ml={3} flex={1}>
         <Link href="/about">
@@ -31,7 +31,7 @@ export const NavBar = ({ backPath }: NavBarProps) => {
             Blog
           </Text>
         </Link>
-        {/* <Link href="/tips">
+        <Link href="/tips">
           <Text
             fontSize="lg"
             fontWeight="500"
@@ -39,7 +39,7 @@ export const NavBar = ({ backPath }: NavBarProps) => {
           >
             Tips
           </Text>
-        </Link> */}
+        </Link>
       </Flex>
     </nav>
   );

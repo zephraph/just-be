@@ -4717,6 +4717,11 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+simple-text-parser@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/simple-text-parser/-/simple-text-parser-2.1.1.tgz#abba48c3d3b691c7971bf1b881d1b1131c923817"
+  integrity sha512-vxq8P4gPpoDR2oz9iFjLS3e/XZPuN+thOiJvbDXQWoBS3DXOYcfTJpmGO0pJke1YjeQeibBvQZ2nAr0gUEI3AQ==
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
