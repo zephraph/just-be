@@ -17,7 +17,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
   return (
     <>
       <NextSeo title="Just Be" />
-      <Stack spacing="3">
+      <Stack spacing="3" className="-ml-4">
         {posts.map((post, currentPost) => (
           <Link href={`/${post.Slug}`}>
             <a>

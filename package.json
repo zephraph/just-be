@@ -26,6 +26,7 @@
     "react-bytesize-icons": "^0.11.1",
     "react-dom": "npm:@preact/compat",
     "react-notion": "^0.9.3",
+    "simple-text-parser": "^2.1.1",
     "tailwindcss": "^1.4.6"
   },
   "devDependencies": {

@@ -1,7 +1,9 @@
 {
   "build": {
     "env": {
-      "BLOG_ID": "@notion-blog-id"
+      "BLOG_ID": "@notion-blog-id",
+      "ABOUT_ID": "@notion-about-id",
+      "TIPS_ID": "@notion-tips-id"
     }
   }
 }
