@@ -27,6 +27,7 @@ export const AnimatedHeader = () => {
   const [revealText, setRevealText] = useState(false);
   return (
     <motion.span
+      key="animated-header"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -41,12 +42,13 @@ export const AnimatedHeader = () => {
       animate={{ width: revealText ? "216px" : "128px" }}
       layout
     >
-      <span>Just</span>
+      <span key="first-start">Just</span>
       <RevealText reveal={revealText}>i</RevealText>
       <RevealText reveal={revealText}>n</RevealText>
       <motion.span
         key="last-container"
         className="absolute"
+        style={{ left: "75px" }}
         initial={{ left: "75px", position: "absolute" }}
         animate={{ left: revealText ? "100px" : "75px", position: "absolute" }}
         transition={{ ease: "easeOut", delay: revealText ? 0 : 0.2 }}
