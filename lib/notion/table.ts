@@ -6,16 +6,17 @@ import {
   RowContentType,
   fetchNotionUsers,
 } from ".";
-import { getNotionValue } from "./utils";
+import { getNotionValue, getNotionVerboseValue } from "./utils";
 
 type Row = { id: string; [key: string]: RowContentType };
 
 interface TableContentOptions {
   notionToken?: string;
+  verbose?: boolean;
 }
 export const getTableContents = async (
   tableId: string,
-  { notionToken }: TableContentOptions = {}
+  { notionToken, verbose = false }: TableContentOptions = {}
 ) => {
   const page = await fetchPageById(tableId, notionToken);
 
@@ -59,7 +60,9 @@ export const getTableContents = async (
       const val = td.value.properties[key];
       if (val) {
         const schema = collectionRows[key];
-        row[schema.name] = getNotionValue(val, schema.type);
+        row[schema.name] = verbose
+          ? (getNotionVerboseValue(val, schema) as any)
+          : getNotionValue(val, schema.type);
         if (schema.type === "person") {
           const users = await fetchNotionUsers(row[schema.name] as string[]);
           row[schema.name] = users;

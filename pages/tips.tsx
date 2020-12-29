@@ -10,25 +10,32 @@ import {
   StackDivider,
   Kbd,
   HStack,
+  Link,
 } from "@chakra-ui/react";
 import { Parser } from "simple-text-parser";
+import NextLink from "next/link";
 
 const ShortcutRegex = /((command|cmd|alt|ctrl|shift|option|opt)\+)+(del|space|enter|esc|`|=|-|f1[0-2]|f[0-9]|[A-Z]|[a-z]|[0-9])/g;
+const LinkTagRegex = /<a href="([^"]*)">([^<]+)<\/a>/g;
 
 type DescriptionNode =
   | { type: "shortcut"; text: string; keys: string[] }
   | { type: "text"; text: string }
-  | { type: "group"; text: string; children: DescriptionNode[] };
+  | { type: "group"; text: string; children: DescriptionNode[] }
+  | { type: "link"; text: string; href: string; external: boolean };
 
 interface Tip {
   Name: string;
   Description: string | DescriptionNode[];
-  Tags: string[];
+  Tags: Array<{
+    value: string;
+    color: string;
+  }>;
   Date: string;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const tips = await getTableContents(process.env.TIPS_ID);
+  const tips = await getTableContents(process.env.TIPS_ID, { verbose: true });
   const parser = new Parser();
   parser.addRule(/\((.*)\)/, (group, match) => {
     return {
@@ -48,6 +55,14 @@ export const getStaticProps: GetStaticProps = async () => {
       type: "shortcut",
       text: shortcutKeys.join("+"),
       keys: shortcutKeys,
+    };
+  });
+  parser.addRule(LinkTagRegex, (link, href, text) => {
+    return {
+      type: "link",
+      text,
+      href,
+      external: href.startsWith("/") || href.includes("just-be.dev"),
     };
   });
   return {
@@ -93,7 +108,6 @@ const renderDescription = (desc: Tip["Description"]) => {
                   )}
                 </>
               ));
-
             case "group":
               return (
                 <HStack display="inline" spacing={0}>
@@ -101,6 +115,14 @@ const renderDescription = (desc: Tip["Description"]) => {
                   {renderDescription(d.children)}
                   <Text as="span">)</Text>
                 </HStack>
+              );
+            case "link":
+              return (
+                <NextLink href={d.href} passHref>
+                  <Link isExternal={!d.external} fontWeight="600">
+                    {d.text}
+                  </Link>
+                </NextLink>
               );
             default:
               throw new Error("Unknown description node type");
@@ -139,8 +161,8 @@ const TipsPage = ({ tips }: TipsPageProps) => {
                 <Flex alignItems="center">
                   {tip.Tags.map((tag) => {
                     return (
-                      <Tag colorScheme="blue" mr={1}>
-                        {tag}
+                      <Tag colorScheme={tag.color} mr={1}>
+                        {tag.value}
                       </Tag>
                     );
                   })}

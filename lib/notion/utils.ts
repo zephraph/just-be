@@ -1,4 +1,9 @@
-import { DecorationType, ColumnType, RowContentType } from "./types";
+import {
+  DecorationType,
+  ColumnType,
+  RowContentType,
+  ColumnSchemaType,
+} from "./types";
 
 const pathToId = (path: string) =>
   `${path.substr(0, 8)}-${path.substr(8, 4)}-${path.substr(
@@ -11,8 +16,38 @@ export const parsePageId = (id: string) => {
   return id.includes("-") ? id : pathToId(id);
 };
 
+const getRichTextContent = (text: DecorationType[]) => {
+  return text.reduce((prev, current) => {
+    const link = current[1]?.find((decoration) => decoration[0] === "a")?.[1];
+    if (link) {
+      return prev + `<a href="${link}">${current[0]}</a>`;
+    }
+    return prev + current[0];
+  }, "");
+};
+
 const getTextContent = (text: DecorationType[]) => {
-  return text.reduce((prev, current) => prev + current[0], "");
+  return text.reduce((prev, current) => {
+    return prev + current[0];
+  }, "");
+};
+
+export const getNotionVerboseValue = (
+  val: DecorationType[],
+  schema: ColumnSchemaType
+) => {
+  switch (schema.type) {
+    case "text":
+      return getRichTextContent(val);
+    case "multi_select":
+      const selected = val[0][0].split(",") as string[];
+      return selected
+        .map((option) => schema.options.find((o) => o.value === option))
+        .filter((option) => !!option)
+        .map(({ id, ...option }) => option);
+    default:
+      return getNotionValue(val, schema.type);
+  }
 };
 
 export const getNotionValue = (
