@@ -10,9 +10,12 @@ import { getNotionValue } from "./utils";
 
 type Row = { id: string; [key: string]: RowContentType };
 
+interface TableContentOptions {
+  notionToken?: string;
+}
 export const getTableContents = async (
   tableId: string,
-  notionToken?: string
+  { notionToken }: TableContentOptions = {}
 ) => {
   const page = await fetchPageById(tableId, notionToken);
 

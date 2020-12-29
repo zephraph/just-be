@@ -6,10 +6,9 @@ import { Post } from "lib/types";
 export default async function (req: NowRequest, res: NowResponse) {
   const { slug } = req.query;
 
-  const posts = ((await getTableContents(
-    process.env.BLOG_ID,
-    process.env.NOTION_TOKEN
-  )) as unknown) as Post[];
+  const posts = ((await getTableContents(process.env.BLOG_ID, {
+    notionToken: process.env.NOTION_TOKEN,
+  })) as unknown) as Post[];
 
   const id = posts.find((post) => post.Slug.split(",").includes(slug as string))
     ?.id;
