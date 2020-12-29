@@ -13,10 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { Parser } from "simple-text-parser";
 
-const ShortcutRegex = /(?:(ctrl|alt|del|cmd|shift|option)\+)(?:(ctrl|alt|del|cmd|shift|option)\+)?(del|space|[A-Z]|[a-z]|f[0-9]|[0-9])/g;
+const ShortcutRegex = /((command|cmd|alt|ctrl|shift|option|opt)\+)+(del|space|enter|esc|`|=|-|f1[0-2]|f[0-9]|[A-Z]|[a-z]|[0-9])/g;
 
 type DescriptionNode =
-  | { type: "shortcut"; text: string }
+  | { type: "shortcut"; text: string; keys: string[] }
   | { type: "text"; text: string }
   | { type: "group"; text: string; children: DescriptionNode[] };
 
@@ -38,9 +38,16 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
   parser.addRule(ShortcutRegex, (shortcut) => {
+    const shortcutKeys = shortcut
+      .replace(/cmd|command/, "⌘")
+      .replace(/option|opt/, "⌥")
+      .split("+")
+      .map((key) => (key.length === 1 ? key.toLocaleUpperCase() : key));
+
     return {
       type: "shortcut",
-      text: shortcut,
+      text: shortcutKeys.join("+"),
+      keys: shortcutKeys,
     };
   });
   return {
@@ -69,8 +76,6 @@ const renderDescription = (desc: Tip["Description"]) => {
               return (
                 <Text
                   as="span"
-                  wordBreak="break-word"
-                  whiteSpace="normal"
                   ml={d.text.startsWith(" ") ? "1px" : 0}
                   mr={d.text.endsWith(" ") ? "1px" : 0}
                 >
@@ -78,26 +83,17 @@ const renderDescription = (desc: Tip["Description"]) => {
                 </Text>
               );
             case "shortcut":
-              return (
-                <HStack
-                  display="inline"
-                  divider={
+              return d.keys.map((key, index) => (
+                <>
+                  <Kbd fontSize="md">{key}</Kbd>
+                  {index < d.keys.length - 1 && (
                     <Text as="span" mx="2px">
                       +
                     </Text>
-                  }
-                >
-                  {d.text
-                    .replace(/cmd|command/, "⌘")
-                    .replace("option", "⌥")
-                    .split("+")
-                    .map((code) => (
-                      <Kbd fontSize="md">
-                        {code.length === 1 ? code.toLocaleUpperCase() : code}
-                      </Kbd>
-                    ))}
-                </HStack>
-              );
+                  )}
+                </>
+              ));
+
             case "group":
               return (
                 <HStack display="inline" spacing={0}>
