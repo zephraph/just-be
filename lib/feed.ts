@@ -3,8 +3,8 @@ import { getPublishedPosts } from "./notion/blog";
 
 export const buildFeed = async () => {
   const feed = new Feed({
-    id: "https://just-be.dev",
-    link: "https://just-be.dev",
+    id: "https://just-be.dev/",
+    link: "https://just-be.dev/",
     title: "Just Be",
     description: "Justin Bennett's technical blog",
     copyright: "All rights reserved 2020, Justin Bennett",
