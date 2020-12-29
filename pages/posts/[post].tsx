@@ -15,7 +15,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     process.env.NOTION_TOKEN
   )) as unknown) as Post[];
 
-  console.log("posts", posts);
   return {
     paths: posts
       .filter((post) =>
