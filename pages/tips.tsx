@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps = async () => {
         return tip;
       }),
     },
-    revalidate: 60 * 10, // Revalidate at most every 10 minutes
+    revalidate: 60, // Revalidate at most every minute
   };
 };
 
