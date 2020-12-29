@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
       tips: tips.map((tip) => {
         const tree = parser.toTree(tip.Description.toLocaleString());
         tip.Description = (tree.length === 1 && tree[0].type === "text"
-          ? tip
+          ? tip.Description
           : tree) as any;
         return tip;
       }),
@@ -138,7 +138,11 @@ const TipsPage = ({ tips }: TipsPageProps) => {
                 </HStack>
                 <Flex alignItems="center">
                   {tip.Tags.map((tag) => {
-                    return <Tag colorScheme="blue">{tag}</Tag>;
+                    return (
+                      <Tag colorScheme="blue" mr={1}>
+                        {tag}
+                      </Tag>
+                    );
                   })}
                 </Flex>
               </VStack>
