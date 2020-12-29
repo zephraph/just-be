@@ -17,6 +17,10 @@ ol.notion-list + ol.notion-list {
   margin-top: -10px;
 }
 
+.notion-list li {
+  padding: 3px 0;
+}
+
 .notion-code {
   overflow-x: auto;
 }
