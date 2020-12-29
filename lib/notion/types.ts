@@ -22,10 +22,22 @@ export type ColumnType =
   | "multi_select"
   | "number";
 
-export type ColumnSchemaType = {
+export type MultiSelectSchemaType = {
   name: string;
-  type: ColumnType;
+  type: "multi_select";
+  options: Array<{
+    id: string;
+    color: string;
+    value: string;
+  }>;
 };
+
+export type ColumnSchemaType =
+  | {
+      name: string;
+      type: Exclude<ColumnType, "multi_select">;
+    }
+  | MultiSelectSchemaType;
 
 export interface CollectionType {
   value: {
