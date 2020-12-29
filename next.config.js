@@ -10,4 +10,16 @@ module.exports = withPreact({
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/feed",
+        destination: "/api/feed/rss",
+      },
+      {
+        source: "/feed/:slug",
+        destination: "/api/feed/:slug",
+      },
+    ];
+  },
 });
