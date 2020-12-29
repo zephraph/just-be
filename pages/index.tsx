@@ -18,8 +18,8 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
     <>
       <NextSeo title="Just Be" />
       <Stack spacing="3" className="-ml-4">
-        {posts.map((post, currentPost) => (
-          <Link href={`/${post.Slug}`}>
+        {posts.map((post) => (
+          <Link href={`/posts/${post.Slug}`}>
             <a>
               <Flex
                 direction="column"

@@ -4,7 +4,6 @@ import { Post } from "lib/types";
 import { NotionRenderer } from "react-notion";
 import { fetchPageById } from "lib/notion";
 import { fetchPostMetaFromSlug } from "lib/notion/blog";
-import { formatDate } from "lib/utils/date";
 import { to } from "lib/utils/await";
 import { NextSeo } from "next-seo";
 import pLocate from "p-locate";
@@ -16,9 +15,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
     process.env.NOTION_TOKEN
   )) as unknown) as Post[];
 
+  console.log("posts", posts);
   return {
     paths: posts
-      .filter((post) => post.Published)
+      .filter((post) =>
+        process.env.NODE_ENV === "development" ? post : post.Published
+      )
       .map((post) => ({
         params: {
           ...post,
@@ -59,7 +61,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       title: postMeta.Name,
       page: page.recordMap.block,
       description: postMeta.Preview,
-      published: postMeta["Published Date"],
+      published: postMeta["Published Date"] || Date.now(),
       backPath: "/",
     },
     revalidate: 60 * 30, // Only revalidate every 30 minutes

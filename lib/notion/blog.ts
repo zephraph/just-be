@@ -6,7 +6,9 @@ export const getPublishedPosts = async () => {
     process.env.BLOG_ID,
     process.env.NOTION_TOKEN
   )) as unknown) as Post[];
-  return posts.filter((post) => post.Published);
+  return process.env.NODE_ENV === "development"
+    ? posts
+    : posts.filter((post) => post.Published);
 };
 
 export const fetchPostMetaFromSlug = async (slug: string) => {
