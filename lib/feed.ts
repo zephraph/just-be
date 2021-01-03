@@ -1,7 +1,9 @@
 import { Feed } from "feed";
 import { getPublishedPosts } from "./notion/blog";
+import { compareDesc } from "date-fns";
 
 export const buildFeed = async () => {
+  const posts = await getPublishedPosts();
   const feed = new Feed({
     id: "https://just-be.dev/",
     link: "https://just-be.dev/",
@@ -9,6 +11,9 @@ export const buildFeed = async () => {
     description: "Justin Bennett's technical blog",
     copyright: "All rights reserved 2020, Justin Bennett",
     language: "en",
+    updated: posts
+      .map((post) => new Date(post["Published Date"]))
+      .sort(compareDesc)[0],
     feedLinks: {
       rss: "https://just-be.dev/feed",
       atom: "https://just-be.dev/feed/atom",
@@ -21,7 +26,6 @@ export const buildFeed = async () => {
     },
   });
 
-  const posts = await getPublishedPosts();
   posts.forEach((post) => {
     const link = `https://just-be.dev/posts/${post.Slug}`;
     feed.addItem({
