@@ -18,11 +18,16 @@ export const parsePageId = (id: string) => {
 
 const getRichTextContent = (text: DecorationType[]) => {
   return text.reduce((prev, current) => {
-    const link = current[1]?.find((decoration) => decoration[0] === "a")?.[1];
-    if (link) {
-      return prev + `<a href="${link}">${current[0]}</a>`;
+    const decoration = current[1]?.[0]?.[0];
+    switch (decoration) {
+      case "a":
+        const link = current[1][1];
+        return prev + `<a href="${link}">${current[0]}</a>`;
+      case "c":
+        return prev + `<pre>${current[0]}</pre>`;
+      default:
+        return prev + current[0];
     }
-    return prev + current[0];
   }, "");
 };
 
