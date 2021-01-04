@@ -17,6 +17,10 @@ ol.notion-list + ol.notion-list {
   margin-top: -10px;
 }
 
+ul.notion-list + :not(ul.notion-list) {
+  margin-top: 10px;
+}
+
 .notion-list li {
   padding: 3px 0;
 }
@@ -30,4 +34,8 @@ ol.notion-list + ol.notion-list {
 .notion-code .token.url,
 .notion-code .token.string {
   background: inherit !important;
+}
+
+.notion-quote {
+  margin: 10px 0;
 }
