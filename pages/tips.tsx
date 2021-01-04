@@ -14,15 +14,19 @@ import {
 } from "@chakra-ui/react";
 import { Parser } from "simple-text-parser";
 import NextLink from "next/link";
+import { compareDesc } from "date-fns";
 
 const ShortcutRegex = /((command|cmd|alt|ctrl|shift|option|opt)\+)+(del|space|enter|esc|`|=|-|f1[0-2]|f[0-9]|[A-Z]|[a-z]|[0-9])/g;
 const LinkTagRegex = /<a href="([^"]*)">([^<]+)<\/a>/g;
+const PreTagRegex = /<pre>([^<]+)<\/pre>/g;
 
 type DescriptionNode =
   | { type: "shortcut"; text: string; keys: string[] }
   | { type: "text"; text: string }
   | { type: "group"; text: string; children: DescriptionNode[] }
-  | { type: "link"; text: string; href: string; external: boolean };
+  | { type: "link"; text: string; href: string; external: boolean }
+  | { type: "newline"; text: "\n" }
+  | { type: "code"; text: string };
 
 interface Tip {
   Name: string;
@@ -35,8 +39,22 @@ interface Tip {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const tips = await getTableContents(process.env.TIPS_ID, { verbose: true });
+  const tips = ((await getTableContents(process.env.TIPS_ID, {
+    verbose: true,
+  })) as unknown) as Tip[];
   const parser = new Parser();
+  parser.addRule("\n", () => {
+    return {
+      type: "newline",
+      text: "\n",
+    };
+  });
+  parser.addRule(PreTagRegex, (code, match) => {
+    return {
+      type: "code",
+      text: match,
+    };
+  });
   parser.addRule(/\((.*)\)/, (group, match) => {
     return {
       type: "group",
@@ -67,13 +85,15 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   return {
     props: {
-      tips: tips.map((tip) => {
-        const tree = parser.toTree(tip.Description.toLocaleString());
-        tip.Description = (tree.length === 1 && tree[0].type === "text"
-          ? tip.Description
-          : tree) as any;
-        return tip;
-      }),
+      tips: tips
+        .map((tip) => {
+          const tree = parser.toTree(tip.Description.toLocaleString());
+          tip.Description = (tree.length === 1 && tree[0].type === "text"
+            ? tip.Description
+            : tree) as any;
+          return tip;
+        })
+        .sort((t1, t2) => compareDesc(new Date(t1.Date), new Date(t2.Date))),
     },
     revalidate: 60, // Revalidate at most every minute
   };
@@ -116,6 +136,12 @@ const renderDescription = (desc: Tip["Description"]) => {
                   <Text as="span">)</Text>
                 </HStack>
               );
+            case "code":
+              return (
+                <Text as="code" className="notion-inline-code">
+                  {d.text}
+                </Text>
+              );
             case "link":
               return (
                 <NextLink href={d.href} passHref>
@@ -124,6 +150,8 @@ const renderDescription = (desc: Tip["Description"]) => {
                   </Link>
                 </NextLink>
               );
+            case "newline":
+              return <br />;
             default:
               throw new Error("Unknown description node type");
           }
