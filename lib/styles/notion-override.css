@@ -39,3 +39,7 @@ ul.notion-list + :not(ul.notion-list) {
 .notion-quote {
   margin: 10px 0;
 }
+
+.notion-quote + :not(.notion-text) {
+  margin-top: 25px;
+}
