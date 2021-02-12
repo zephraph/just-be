@@ -21,7 +21,7 @@ const getRichTextContent = (text: DecorationType[]) => {
     const decoration = current[1]?.[0]?.[0];
     switch (decoration) {
       case "a":
-        const link = current[1][1];
+        const link = current[1][0][1];
         return prev + `<a href="${link}">${current[0]}</a>`;
       case "c":
         return prev + `<pre>${current[0]}</pre>`;
