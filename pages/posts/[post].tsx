@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const BlogPost = ({ page, title, description, published }) => {
   return (
     <>
-      <NextSeo title={`Just Be | ${title}`} description={description} />
+      <NextSeo title={`${title}`} description={description} />
       <Title text={title} date={published} />
       <NotionRenderer blockMap={page} />
     </>

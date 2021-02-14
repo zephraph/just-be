@@ -41,17 +41,21 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
           href="/feed/json"
         />
       </Head>
-      <Stack spacing="3" className="-ml-4">
+      <Stack spacing="3" className="-ml-8 mt-2">
         {posts.map((post) => (
           <Link href={`/posts/${post.Slug}`}>
             <a>
               <Flex
                 direction="column"
-                p="2"
+                py="6"
+                px="6"
+                mt="-3"
                 ml="2"
                 className="rounded hover:bg-gray-200"
               >
-                <Text fontSize="xl">{post.Name}</Text>
+                <Text fontSize="2xl" fontFamily="Bastia-bold">
+                  {post.Name}
+                </Text>
                 <Text fontSize="md" color="gray.500">
                   {post.Preview}
                 </Text>

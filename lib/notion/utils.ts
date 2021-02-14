@@ -79,6 +79,8 @@ export const getNotionValue = (
       return val[0][0].split(",") as string[];
     case "number":
       return Number(val[0][0]);
+    case "url" as any:
+      return val[0][0];
     default:
       console.error({ val, type });
       return "Not supported";

@@ -22,7 +22,11 @@ const RevealText = ({ reveal, children, ...props }) => {
   );
 };
 
-export const AnimatedHeader = () => {
+interface AnimatedHeaderProps {
+  className?: string;
+}
+
+export const AnimatedHeader = ({ className }) => {
   const router = useRouter();
   const [revealText, setRevealText] = useState(false);
   return (
@@ -33,7 +37,12 @@ export const AnimatedHeader = () => {
         e.stopPropagation();
         router.push("/");
       }}
-      className="whitespace-no-wrap text-4xl mr-2 font-thin text-gray-800 cursor-pointer relative"
+      style={{
+        fontSize: "1.75em",
+      }}
+      className={`whitespace-no-wrap mr-2 cursor-pointer relative bastia ${
+        className ?? ""
+      }`}
       onMouseEnter={() => setRevealText(true)}
       onMouseLeave={() => {
         setRevealText(false);
@@ -42,18 +51,21 @@ export const AnimatedHeader = () => {
       animate={{ width: revealText ? "216px" : "128px" }}
       layout
     >
-      <span key="first-start">Just</span>
+      <span key="first-start">just</span>
       <RevealText reveal={revealText}>i</RevealText>
       <RevealText reveal={revealText}>n</RevealText>
       <motion.span
         key="last-container"
         className="absolute"
-        style={{ left: "75px" }}
-        initial={{ left: "75px", position: "absolute" }}
-        animate={{ left: revealText ? "100px" : "75px", position: "absolute" }}
+        style={{ left: "59px" }}
+        initial={{ left: "59px", position: "absolute" }}
+        animate={{
+          left: revealText ? "88px" : "59px",
+          position: "absolute",
+        }}
         transition={{ ease: "easeOut", delay: revealText ? 0 : 0.2 }}
       >
-        <span>Be</span>
+        <span>be</span>
         <RevealText reveal={revealText}>n</RevealText>
         <RevealText reveal={revealText}>n</RevealText>
         <RevealText reveal={revealText}>e</RevealText>

@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { Flex, Text } from "@chakra-ui/react";
 import { AnimatedHeader } from "./AnimatedHeader";
-
+import { useRouter } from "next/router";
 interface NavBarProps {
   backPath?: string;
 }
 
 export const NavBar = ({ backPath }: NavBarProps) => {
+  const fontColor = "text-gray-600 hover:text-gray-800 ease-out duration-300";
   return (
-    <nav className="flex justify-between items-center pt-3 pb-10 md:pt-4 md:pb-10">
-      <AnimatedHeader />
+    <nav className="flex justify-between items-center pt-3 pb-16 md:pt-4">
+      <AnimatedHeader className={fontColor} />
       <Flex justifyContent="flex-end" width="230px" ml={3} flex={1}>
         <Link href="/about">
           <Text
             fontSize="lg"
             fontWeight="500"
-            className="hover:underline cursor-pointer"
+            className={`hover:underline cursor-pointer ${fontColor}`}
             mr={3}
           >
             About
@@ -25,7 +26,7 @@ export const NavBar = ({ backPath }: NavBarProps) => {
           <Text
             fontSize="lg"
             fontWeight="500"
-            className="hover:underline cursor-pointer"
+            className={`hover:underline cursor-pointer ${fontColor}`}
             mr={3}
           >
             Blog
@@ -35,7 +36,7 @@ export const NavBar = ({ backPath }: NavBarProps) => {
           <Text
             fontSize="lg"
             fontWeight="500"
-            className="hover:underline cursor-pointer"
+            className={`hover:underline cursor-pointer ${fontColor}`}
           >
             Tips
           </Text>
