@@ -1,6 +1,7 @@
 h1.notion-h1,
 h2.notion-h2,
 h3.notion-h3 {
+  font-family: "Bastia-bold", Georgia, 'Times New Roman', Times, serif;
   font-weight: 500;
   color: #2d3748;
 }

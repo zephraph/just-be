@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       .map((post) => ({
         params: {
           ...post,
-          post: post.Slug.split(",")[0].trim(),
+          post: post.Slug?.split(",")[0].trim() ?? "",
         },
       })) as any,
     fallback: "blocking",
