@@ -11,14 +11,16 @@ import {
   Kbd,
   HStack,
   Link,
+  Box,
 } from "@chakra-ui/react";
 import { Parser } from "simple-text-parser";
 import NextLink from "next/link";
 import { compareDesc } from "date-fns";
+import { format } from 'prettier'
 
 const ShortcutRegex = /((command|cmd|alt|ctrl|shift|option|opt)\+)+(del|space|enter|esc|`|=|-|f1[0-2]|f[0-9]|[A-Z]|[a-z]|[0-9])/g;
 const LinkTagRegex = /<a href="([^"]*)">([^<]+)<\/a>/g;
-const PreTagRegex = /<pre>([^<]+)<\/pre>/g;
+const PreTagRegex = /<pre>((?:(?!<\/pre>).)*)<\/pre>/g;
 
 type DescriptionNode =
   | { type: "shortcut"; text: string; keys: string[] }
@@ -50,9 +52,17 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
   parser.addRule(PreTagRegex, (code, match) => {
+    let text;
+
+    try {
+      text = format(match, { parser: 'typescript', semi: false }).trim()
+    } catch {
+      text = match
+    }
+
     return {
       type: "code",
-      text: match,
+      text
     };
   });
   parser.addRule(/\((.*)\)/, (group, match) => {
@@ -136,12 +146,14 @@ const renderDescription = (desc: Tip["Description"]) => {
                   <Text as="span">)</Text>
                 </HStack>
               );
-            case "code":
+            case "code": {
+              const multiLine = d.text.split('\n').length > 1;
               return (
-                <Text as="code" className="notion-inline-code">
+                <Text as="code" className="notion-inline-code" whiteSpace="pre" display={multiLine ? 'block' : 'inline'} mb={multiLine ? -7 : 0}>
                   {d.text}
                 </Text>
               );
+            }
             case "link":
               return (
                 <NextLink href={d.href} passHref>
