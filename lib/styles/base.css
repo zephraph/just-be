@@ -1,12 +1,24 @@
 /* @license see https://just-be.dev/fonts/bastia/LICENSE */
 @font-face {
-  font-family: "Bastia-bold";
+  font-family: 'Bastia-bold';
   font-display: swap;
-  src: url('/fonts/bastia/bold.woff2') format('woff2'), url('/fonts/bastia/bold.woff') format('woff')
+  src: url('/fonts/bastia/bold.woff2') format('woff2'),
+    url('/fonts/bastia/bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Bastia-outline';
+  font-display: swap;
+  src: url('/fonts/bastia/outline.woff2') format('woff2'),
+    url('/fonts/bastia/outline.woff') format('woff');
 }
 
 .bastia {
-  font-family: "Bastia-bold";
+  font-family: 'Bastia-bold';
+}
+
+.bastia-outline {
+  font-family: 'Bastia-outline';
 }
 
 @tailwind base;
