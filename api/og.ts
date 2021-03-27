@@ -21,7 +21,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     headless: true,
   })
   const page = await browser.newPage()
-  await page.goto(`${origin}/og/${(route as string[]).join('/')}`)
+  await page.goto(`${origin}/og/${route}`)
   await page.setViewport({ width: 1200, height: 627 })
   const imageBuffer = await page.screenshot({
     type: 'png',
