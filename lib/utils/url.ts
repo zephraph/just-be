@@ -1,6 +1,13 @@
-export const siteURL = (pathName?: string, params?: Record<string, string>) => {
+export const siteURL = (
+  pathName?: string,
+  params?: Record<string, string> | string
+) => {
   let host
-  let query = params ? `?${new URLSearchParams(params)}` : ''
+  let query = !params
+    ? ''
+    : typeof params === 'object'
+    ? `?${new URLSearchParams(params)}`
+    : params
   if ((host = process.env.NEXT_PUBLIC_VERCEL_URL)) {
     return `https://${host}/${pathName}${query}`
   }
