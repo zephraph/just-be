@@ -6,7 +6,7 @@ interface NavBarProps {
 }
 
 export const NavBar = ({ backPath }: NavBarProps) => {
-  const fontColor = 'text-gray-600 hover:text-gray-800 ease-out duration-300'
+  const fontColor = 'text-gray-400 hover:text-gray-800 ease-out duration-300'
   return (
     <nav className="flex justify-between items-center pt-3 pb-16 md:pt-4">
       <AnimatedHeader className={fontColor} />

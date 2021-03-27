@@ -1,18 +1,18 @@
-import { GetStaticProps } from "next";
-import { getPublishedPosts } from "lib/notion/blog";
-import Link from "next/link";
-import { Post } from "lib/types";
-import { Flex, Stack, Text } from "@chakra-ui/react";
-import { NextSeo } from "next-seo";
-import Head from "next/head";
+import { GetStaticProps } from 'next'
+import { getPublishedPosts } from 'lib/notion/blog'
+import Link from 'next/link'
+import { Post } from 'lib/types'
+import { Flex, Stack, Text } from '@chakra-ui/react'
+import { NextSeo } from 'next-seo'
+import Head from 'next/head'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const publishedPosts = await getPublishedPosts();
+  const publishedPosts = await getPublishedPosts()
   return {
     props: { posts: publishedPosts },
     revalidate: 60,
-  };
-};
+  }
+}
 
 const BlogPosts = ({ posts }: { posts: Post[] }) => {
   return (
@@ -51,7 +51,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
                 px="6"
                 mt="-3"
                 ml="2"
-                className="rounded hover:bg-gray-200"
+                className="rounded hover:bg-gray-100"
               >
                 <Text fontSize="2xl" fontFamily="Bastia-bold">
                   {post.Name}
@@ -65,7 +65,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
         ))}
       </Stack>
     </>
-  );
-};
+  )
+}
 
-export default BlogPosts;
+export default BlogPosts

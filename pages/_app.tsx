@@ -2,6 +2,7 @@ import 'lib/styles/base.css'
 import 'react-notion/src/styles.css'
 import 'lib/styles/notion-override.css'
 import 'prismjs/themes/prism.css'
+import 'windi.css'
 import { Layout } from '@artsy/next-layout'
 import { ChakraProvider } from '@chakra-ui/react'
 

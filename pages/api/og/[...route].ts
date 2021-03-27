@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const {
-    query: { type, ...params },
+    query: { route },
     headers: { OG_KEY },
   } = req
   if (process.env.NODE_ENV === 'production' && OG_KEY !== process.env.OG_KEY) {
@@ -21,7 +21,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     headless: true,
   })
   const page = await browser.newPage()
-  await page.goto(`${origin}/og/${type}?${new URLSearchParams(params as any)}`)
+  await page.goto(`${origin}/og/${(route as string[]).join('/')}`)
   await page.setViewport({ width: 1200, height: 627 })
   const imageBuffer = await page.screenshot({
     type: 'png',

@@ -21,17 +21,12 @@
   font-family: 'Bastia-outline';
 }
 
-@tailwind base;
-
 html,
 body,
 #__next {
   height: 100%;
   -webkit-overflow-scrolling: touch;
 }
-
-@tailwind components;
-@tailwind utilities;
 
 .transition-0_5 {
   transition: all 0.5s;

@@ -61,13 +61,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page: page.block,
       description: postMeta.Preview,
       published: postMeta['Published Date'] || Date.now(),
+      slug: postMeta.Slug,
       backPath: '/',
     },
     revalidate: 60 * 30, // Only revalidate every 30 minutes
   }
 }
 
-const BlogPost = ({ page, title, description, published }) => {
+const BlogPost = ({ page, slug, title, description, published }) => {
   return (
     <>
       <NextSeo
@@ -79,7 +80,7 @@ const BlogPost = ({ page, title, description, published }) => {
           description,
           images: [
             {
-              url: siteURL('api/og/image', { title }),
+              url: siteURL(`api/og/posts/${slug}`),
               alt: title,
             },
           ],
