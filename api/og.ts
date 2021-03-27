@@ -5,13 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { route },
-    headers: { OG_KEY },
   } = req
-  if (process.env.NODE_ENV === 'production' && OG_KEY !== process.env.OG_KEY) {
-    res.statusCode = 401
-    res.end()
-    return
-  }
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
