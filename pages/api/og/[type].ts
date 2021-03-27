@@ -18,6 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
     ignoreHTTPSErrors: true,
+    headless: true,
   })
   const page = await browser.newPage()
   await page.goto(`${origin}/og/${type}?${new URLSearchParams(params as any)}`)
