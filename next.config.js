@@ -1,5 +1,10 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')(['lodash-es', 'date-fns/esm'])
+const withTM = require('next-transpile-modules')([
+  'lodash-es',
+  'date-fns/esm',
+  'prettier/esm/standalone',
+  'prettier/esm/parser-typescript',
+])
 const withPreact = require('next-plugin-preact')
 const withNextBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',

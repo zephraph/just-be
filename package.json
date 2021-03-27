@@ -41,6 +41,7 @@
     "@types/node": "^14.14.9",
     "@types/prettier": "^2.2.1",
     "@types/react": "^17.0.0",
+    "@vercel/nft": "^0.9.6",
     "autoprefixer": "^10.0.2",
     "lodash-es": "^4.17.21",
     "next-compose-plugins": "^2.2.1",
@@ -51,5 +52,8 @@
   },
   "optionalDependencies": {
     "puppeteer": "^7.0.0"
+  },
+  "resolutions": {
+    "webpack": "5.28.0"
   }
 }
