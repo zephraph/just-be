@@ -104,7 +104,7 @@ const BlogPost = ({ page, slug, title, description, published }) => {
         }}
         twitter={{
           handle: '@zephraph',
-          cardType: 'summary',
+          cardType: 'summary_large_image',
         }}
       />
       <Title text={title} date={published} />
