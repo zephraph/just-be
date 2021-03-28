@@ -2,13 +2,15 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { getTableContents } from 'lib/notion/table'
 import { Post } from 'lib/types'
 import { NotionRenderer } from 'react-notion'
-import { fetchPageById } from 'lib/notion'
+import { ExtendedBlock, fetchPageById } from 'lib/notion'
 import { fetchPostMetaFromSlug } from 'lib/notion/blog'
 import { to } from 'lib/utils/await'
 import { NextSeo } from 'next-seo'
 import pLocate from 'p-locate'
 import { Title } from 'lib/components/title'
 import { siteURL } from 'lib/utils/url'
+import { fetchTweetAst } from 'static-tweets'
+import { Tweet } from 'react-static-tweets'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = ((await getTableContents(process.env.BLOG_ID, {
@@ -43,6 +45,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page: await fetchPageById(meta.id, process.env.NOTION_TOKEN),
     }))
   )
+
+  for (let block of Object.values(data.page.block).map(
+    ({ value }) => value as ExtendedBlock
+  )) {
+    if (block.type === 'tweet') {
+      const source = block.properties?.source?.[0]?.[0]
+      const id = source?.split('?')[0].split('/').pop()
+      if (!id) continue
+      block.properties = {
+        ...block.properties,
+        id,
+        ast: await fetchTweetAst(id),
+      }
+    }
+  }
 
   if (err) {
     console.error('ERROR:', err)
@@ -91,7 +108,18 @@ const BlogPost = ({ page, slug, title, description, published }) => {
         }}
       />
       <Title text={title} date={published} />
-      <NotionRenderer blockMap={page} />
+      <NotionRenderer
+        blockMap={page}
+        customBlockComponents={{
+          tweet: ({ blockValue }) => {
+            const { id, ast } = blockValue.properties
+            if (id && ast) {
+              return <Tweet id={id} ast={ast} />
+            }
+            return null
+          },
+        }}
+      />
     </>
   )
 }

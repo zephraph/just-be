@@ -12,6 +12,9 @@ const withNextBundleAnalyzer = require('@next/bundle-analyzer')({
 const { default: WindiPlugin } = require('windicss-webpack-plugin')
 
 module.exports = withPlugins([withTM, withPreact, withNextBundleAnalyzer], {
+  images: {
+    domains: ['pbs.twimg.com'],
+  },
   async redirects() {
     return [
       {

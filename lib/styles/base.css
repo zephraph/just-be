@@ -31,3 +31,7 @@ body,
 .transition-0_5 {
   transition: all 0.5s;
 }
+
+article.static-tweet {
+  margin: 20px auto;
+}
