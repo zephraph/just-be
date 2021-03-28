@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import { getPublishedPosts } from 'lib/notion/blog'
 import Link from 'next/link'
 import { Post } from 'lib/types'
-import { Flex, Stack, Text } from '@chakra-ui/react'
+import { Flex, Stack, Text, Tag, TagLabel } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
 
@@ -53,6 +53,9 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
                 ml="2"
                 className="rounded hover:bg-gray-100"
               >
+                <Text color="gray.500" fontSize="sm" mb={1}>
+                  {post['Published Date']}
+                </Text>
                 <Text fontSize="2xl" fontFamily="Bastia-bold">
                   {post.Name}
                 </Text>

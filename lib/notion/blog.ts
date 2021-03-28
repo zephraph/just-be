@@ -11,7 +11,6 @@ export const getPublishedPosts = async () => {
   ).sort((a, b) => {
     const aDate = a['Published Date'] ?? new Date(0).toISOString()
     const bDate = b['Published Date'] ?? new Date(0).toISOString()
-    console.log(aDate, bDate)
     if (aDate > bDate) return -1
     if (aDate < bDate) return 1
     return 0
