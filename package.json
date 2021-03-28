@@ -16,7 +16,6 @@
     "@chakra-ui/react": "^1.0.1",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
-    "chrome-aws-lambda": "^7.0.0",
     "date-fns": "^2.19.0",
     "feed": "^4.2.1",
     "framer-motion": "^2.9.4",
@@ -24,10 +23,11 @@
     "next": "^10.0.9",
     "next-seo": "^4.17.0",
     "notion-client": "^4.3.2",
+    "playwright-aws-lambda": "^0.6.0",
+    "playwright-core": "^1.10.0",
     "preact": "^10.5.7",
     "preact-render-to-string": "^5.1.12",
     "prettier": "^2.2.1",
-    "puppeteer-core": "^7.0.0",
     "react": "npm:@preact/compat",
     "react-bytesize-icons": "^0.11.1",
     "react-dom": "npm:@preact/compat",
@@ -53,7 +53,7 @@
     "windicss-webpack-plugin": "^0.2.8"
   },
   "optionalDependencies": {
-    "puppeteer": "^7.0.0"
+    "playwright": "^1.10.0"
   },
   "resolutions": {
     "webpack": "5.28.0"

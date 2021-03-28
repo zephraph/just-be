@@ -1,21 +1,21 @@
-import chromium from 'chrome-aws-lambda'
 import { siteURL } from '../lib/utils/url'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { launchChromium } from 'playwright-aws-lambda'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { route },
   } = req
-  const browser = await chromium.puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    ignoreHTTPSErrors: true,
-    headless: true,
+  const browser = await launchChromium({ headless: true })
+  const context = await browser.newContext({
+    viewport: {
+      width: 1200,
+      height: 627,
+    },
   })
-  const page = await browser.newPage()
+  const page = await context.newPage()
   await page.goto(siteURL(`og/${route}`))
-  await page.setViewport({ width: 1200, height: 627 })
+  await page.setViewportSize({ width: 1200, height: 627 })
   const imageBuffer = await page.screenshot({
     type: 'png',
   })
