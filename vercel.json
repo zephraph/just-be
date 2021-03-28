@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/og/:route*", "destination": "/api/og?route=:route*" }
+  ]
+}

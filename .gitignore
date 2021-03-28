@@ -4,3 +4,5 @@ node_modules
 *-error.log
 package-lock.json
 .env
+.vercel
+*-debug.log

@@ -1,19 +1,19 @@
-import { NextSeo } from "next-seo";
-import { NotionRenderer } from "react-notion";
-import { GetStaticProps } from "next";
-import { fetchPageById } from "lib/notion";
-import { Flex } from "@chakra-ui/react";
-import { GitHub, Twitter } from "react-bytesize-icons";
-import { Title } from "lib/components/title";
+import { NextSeo } from 'next-seo'
+import { NotionRenderer } from 'react-notion'
+import { GetStaticProps } from 'next'
+import { fetchPageById } from 'lib/notion'
+import { Flex } from '@chakra-ui/react'
+import { GitHub, Twitter } from 'react-bytesize-icons'
+import { Title } from 'lib/components/title'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
-      page: (await fetchPageById(process.env.ABOUT_ID)).recordMap.block,
+      page: (await fetchPageById(process.env.ABOUT_ID)).block,
     },
     revalidate: 3600, // Revalidate every hour
-  };
-};
+  }
+}
 
 const AboutPage = ({ page }) => {
   return (
@@ -35,7 +35,7 @@ const AboutPage = ({ page }) => {
         </Flex>
       </article>
     </>
-  );
-};
+  )
+}
 
-export default AboutPage;
+export default AboutPage
