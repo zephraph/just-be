@@ -9,7 +9,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production next start",
-    "analyze": "ANALYZE=true yarn build && npx serve .next/analyze"
+    "analyze": "ANALYZE=true yarn build && npx serve .next/analyze",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@artsy/next-layout": "^0.2.0",
