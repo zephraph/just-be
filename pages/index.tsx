@@ -17,7 +17,24 @@ export const getStaticProps: GetStaticProps = async () => {
 const BlogPosts = ({ posts }: { posts: Post[] }) => {
   return (
     <>
-      <NextSeo title="Just Be" />
+      <NextSeo
+        title="Just Be"
+        twitter={{
+          handle: '@zephraph',
+          cardType: 'summary_large_image',
+        }}
+        openGraph={{
+          type: 'website',
+          title: 'Just Be',
+          images: [
+            {
+              url:
+                'https://repository-images.githubusercontent.com/224778195/eb2acb80-91c4-11eb-8f19-7323a0e93a1a',
+              alt: 'just-be.dev',
+            },
+          ],
+        }}
+      />
       <Head>
         <link
           key="rss-feed"
