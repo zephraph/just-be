@@ -5,6 +5,7 @@ import { Post } from 'lib/types'
 import { Flex, Stack, Text, Tag, TagLabel } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import Head from 'next/head'
+import { siteURL } from 'lib/utils/url'
 
 export const getStaticProps: GetStaticProps = async () => {
   const publishedPosts = await getPublishedPosts()
@@ -28,8 +29,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
           title: 'Just Be',
           images: [
             {
-              url:
-                'https://repository-images.githubusercontent.com/224778195/eb2acb80-91c4-11eb-8f19-7323a0e93a1a',
+              url: `${siteURL('images/just-be-social-share.png')}`,
               alt: 'just-be.dev',
             },
           ],
