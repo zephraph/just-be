@@ -36,6 +36,7 @@ export const NavBar = ({ backPath }: NavBarProps) => {
             fontSize="lg"
             fontWeight="500"
             className={`hover:underline cursor-pointer ${fontColor}`}
+            mr={3}
           >
             Tips
           </Text>
