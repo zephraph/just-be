@@ -35,9 +35,9 @@ module.exports = withPlugins([withTM, withPreact, withNextBundleAnalyzer], {
         destination: "/api/feed/:slug",
       },
       {
-        source: "/notes/:slug",
+        source: "/notes/:path*",
         destination:
-          "https://publish.obsidian.md/serve?url=just-be.dev/notes/:slug",
+          "https://publish.obsidian.md/serve?url=just-be.dev/notes/:path*",
       },
     ];
   },
