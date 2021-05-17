@@ -31,16 +31,6 @@ export const NavBar = ({ backPath }: NavBarProps) => {
             Blog
           </Text>
         </Link>
-        <Link href="/tips">
-          <Text
-            fontSize="lg"
-            fontWeight="500"
-            className={`hover:underline cursor-pointer ${fontColor}`}
-            mr={3}
-          >
-            Tips
-          </Text>
-        </Link>
         <Link href="/notes">
           <Text
             fontSize="lg"
