@@ -1,19 +1,19 @@
-import { GetStaticProps } from 'next'
-import { getPublishedPosts } from 'lib/notion/blog'
-import Link from 'next/link'
-import { Post } from 'lib/types'
-import { Flex, Stack, Text, Tag, TagLabel } from '@chakra-ui/react'
-import { NextSeo } from 'next-seo'
-import Head from 'next/head'
-import { siteURL } from 'lib/utils/url'
+import { GetStaticProps } from "next";
+import { getPublishedPosts } from "lib/notion/blog";
+import Link from "next/link";
+import { Post } from "lib/types";
+import { Flex, Stack, Text, Tag, TagLabel } from "@chakra-ui/react";
+import { NextSeo } from "next-seo";
+import Head from "next/head";
+import { siteURL } from "lib/utils/url";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const publishedPosts = await getPublishedPosts()
+  const publishedPosts = await getPublishedPosts();
   return {
     props: { posts: publishedPosts },
     revalidate: 60,
-  }
-}
+  };
+};
 
 const BlogPosts = ({ posts }: { posts: Post[] }) => {
   return (
@@ -21,16 +21,16 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
       <NextSeo
         title="Just Be"
         twitter={{
-          handle: '@zephraph',
-          cardType: 'summary_large_image',
+          handle: "@zephraph",
+          cardType: "summary_large_image",
         }}
         openGraph={{
-          type: 'website',
-          title: 'Just Be',
+          type: "website",
+          title: "Just Be",
           images: [
             {
-              url: `${siteURL('images/just-be-social-share.png')}`,
-              alt: 'just-be.dev',
+              url: `${siteURL("images/just-be-social-share.png")}`,
+              alt: "just-be.dev",
             },
           ],
         }}
@@ -60,7 +60,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
       </Head>
       <Stack spacing="3" className="-ml-8 mt-2">
         {posts.map((post) => (
-          <Link href={`/posts/${post.Slug}`}>
+          <Link key={post.Slug} href={`/posts/${post.Slug}`}>
             <a>
               <Flex
                 direction="column"
@@ -71,7 +71,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
                 className="rounded hover:bg-gray-100"
               >
                 <Text color="gray.500" fontSize="sm" mb={1}>
-                  {post['Published Date']}
+                  {post["Published Date"]}
                 </Text>
                 <Text fontSize="2xl" fontFamily="Bastia-bold">
                   {post.Name}
@@ -85,7 +85,7 @@ const BlogPosts = ({ posts }: { posts: Post[] }) => {
         ))}
       </Stack>
     </>
-  )
-}
+  );
+};
 
-export default BlogPosts
+export default BlogPosts;
