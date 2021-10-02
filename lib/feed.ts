@@ -30,6 +30,7 @@ export const buildFeed = async () => {
       description: post.Preview,
       link,
       date: new Date(post["Published Date"] || Date.now()),
+      content: `${post.Preview}<br/><br/>Read more at <a href="${link}">${link}</a>`,
     });
   });
 
